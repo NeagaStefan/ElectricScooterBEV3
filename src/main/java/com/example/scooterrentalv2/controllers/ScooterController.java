@@ -23,39 +23,41 @@ public class ScooterController {
     }
     //Shows all scooters available for customers
 
-//    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/scooters")
     public List<ScooterDto> showAllAvailableScooters(){
         return scooterService.showAllAvailableScooters();
     }
+
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/scooters/{id}")
     public List<Optional<Scooter>> showScooterById (@PathVariable Long id) {
         return
                  Arrays.asList(scooterService.findScooterById(id));
     }
     //Show all scooters in the company
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/scooters/admin")
     public List<ScooterDto> showAllScootersAdmin(){
         return scooterService.showAllScootersAdmin();
     }
 
     //Shows scooters by status for checking
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/scooters/status/{status}")
     public List<ScooterDto> showScootersByStatus(@PathVariable String status){
         return scooterService.showScootersByStatus(status);
     }
 
     //Shows scooters by position to know where are the closest ones
-//    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/scooters/position/{position}")
     public List<ScooterDto> showScootersByPosition(@PathVariable String position){
         return scooterService.showScootersByPosition(position);
     }
 
     //Show scooters under some percent of battery, good to know witch ones to take to charge
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/scooters/battery/{battery}")
     public List<ScooterDto> showScootersByBattery(@PathVariable Integer battery){
         return scooterService.showScootersByBattery(battery);
@@ -63,14 +65,14 @@ public class ScooterController {
 
 
     //Introducing a new Scooter in the database
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @PostMapping("/scooters")
     public Scooter saveScooter(@Valid @RequestBody ScooterDto scooterDto){
         return scooterService.saveScooter(scooterDto);
     }
 
     //Updating existing scooter
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @PostMapping("/scooters/{id}")
     public Scooter updateScooter(@Valid @PathVariable  Long id,@RequestBody ScooterDto scooterDto){
         return scooterService.updateScooter(id,scooterDto);
@@ -83,7 +85,7 @@ public class ScooterController {
     public void updateStatus(@RequestParam ("scooterId") Long scooterId,@RequestParam("status") String status,@RequestParam("location") String location){
         scooterService.updateStatusAndPosition(scooterId,status, location);
     }
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     //Soft deletes a scooter
     @DeleteMapping("/scooters/{scooterId}")
     public void deleteScooter(@PathVariable Long scooterId){

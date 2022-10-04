@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfo {
-    public Long scooterId;
     public String userName;
+    public Long scooterId;
+
     public String newLocation;
 }

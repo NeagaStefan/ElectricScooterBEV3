@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,12 +50,13 @@ public class HistoryController {
 //        return historyService.showAllRecords();
 //    }
 
-//    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/history/")
     public List<HistoryDto> showRecordsBetweenDates(@RequestParam("startDate") Timestamp startDate, @RequestParam("endDate") Timestamp endDate){
         return historyService.showRecordsBetweenDates(startDate,endDate);
 
     }
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     @GetMapping("/history/user/{userName}")
     public ResponseEntity<Map<String, Object>> showRecordsByUserName(@PathVariable String userName, @RequestParam(defaultValue = "0") int page,
                                                                      @RequestParam(defaultValue = "10") int size,
