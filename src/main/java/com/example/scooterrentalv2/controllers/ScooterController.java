@@ -5,6 +5,7 @@ import com.example.scooterrentalv2.models.Scooter;
 import com.example.scooterrentalv2.models.ScooterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,7 +24,7 @@ public class ScooterController {
     }
     //Shows all scooters available for customers
 
-    @Secured({"ROLE_ADMIN","ROLE_USER"})
+    @PreAuthorize("hasRole('ROLE_USER')  or hasRole('ROLE_ADMIN')")
     @GetMapping("/scooters")
     public List<ScooterDto> showAllAvailableScooters(){
         return scooterService.showAllAvailableScooters();
