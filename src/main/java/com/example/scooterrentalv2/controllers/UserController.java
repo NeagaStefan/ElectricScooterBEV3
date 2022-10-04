@@ -3,6 +3,7 @@ package com.example.scooterrentalv2.controllers;
 import com.example.scooterrentalv2.Services.UserService;
 import com.example.scooterrentalv2.models.User;
 import com.example.scooterrentalv2.models.UserDto;
+import com.example.scooterrentalv2.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,16 +26,16 @@ public class UserController {
         userService.updatePassword(userName,newPass);
     }
     @PutMapping("/users/start")
-    public String startRenting(@RequestParam("userName")String userName,@RequestParam("scooterId") Long scooterId){
-        userService.startRenting(userName,scooterId);
+    public String startRenting(@RequestBody UserInfo userInfo) {
+        userService.startRenting(userInfo.userName,userInfo.scooterId);
         return "The rental has started";
 
     }
     //    @Secured({"ROLE_ADMIN","ROLE_USER"})
     //Stops the rental based on the username and id, in addition it changes the scooter position
     @PutMapping("/users/stop")
-    public String stopRenting(@RequestParam("userName")String userName,@RequestParam("scooterId") Long scooterId,@RequestParam("newLocation")String newLocation){
-        userService.stopRenting(userName,scooterId,newLocation);
+    public String stopRenting(@RequestBody UserInfo userInfo){
+        userService.stopRenting(userInfo.userName,userInfo.scooterId, userInfo.newLocation);
         return "The rental has stopped";
     }
 

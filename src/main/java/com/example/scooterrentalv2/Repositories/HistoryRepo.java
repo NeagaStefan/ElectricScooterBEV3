@@ -1,12 +1,15 @@
 package com.example.scooterrentalv2.Repositories;
 
 import com.example.scooterrentalv2.models.History;
+import com.example.scooterrentalv2.models.HistoryDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Pageable;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -28,4 +31,7 @@ public interface HistoryRepo extends JpaRepository<History,Long> {
 
     @Query("select  h from History h where h.startDate between :startDate and :endDate")
     List<History> showRecordsBetweenDates(@Param("startDate") Timestamp startDate,@Param("endDate") Timestamp endDate);
+
+    @Query(value ="select h from History h where h.userName=:userName order by rentalId asc " )
+    Page<History> showRecordsByUserName(String userName, Pageable pageable);
 }
