@@ -9,6 +9,8 @@ import com.example.scooterrentalv2.models.ScooterDto;
 import com.example.scooterrentalv2.models.StatusEnum;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.EnumUtils;
 
@@ -46,6 +48,11 @@ public class ScooterServiceImpl implements ScooterService {
     @Override
     public Optional<Scooter> findScooterById(Long id) {
         return scooterRepo.findById(id);
+    }
+
+    @Override
+    public Page<Scooter> findAll(Pageable pagingSort) {
+        return scooterRepo.findAll(pagingSort);
     }
 
     @Override
