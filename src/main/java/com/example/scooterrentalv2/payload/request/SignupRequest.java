@@ -18,9 +18,37 @@ public class SignupRequest {
 
         private Set<String> role;
 
-        @NotBlank
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    @NotBlank
         @Size(min = 6, max = 40)
         private String password;
+    public String cardNumber;
+    public String cardCSV;
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardCSV() {
+        return cardCSV;
+    }
+
+    public void setCardCSV(String cardCSV) {
+        this.cardCSV = cardCSV;
+    }
+
+    public String getCardExpDate() {
+        return cardExpDate;
+    }
+
+    public void setCardExpDate(String cardExpDate) {
+        this.cardExpDate = cardExpDate;
+    }
+
+    private String cardExpDate;
 
         public String getUsername() {
             return username;
@@ -53,5 +81,6 @@ public class SignupRequest {
         public void setRole(Set<String> role) {
             this.role = role;
         }
-    }
+
+}
 

@@ -14,4 +14,6 @@ public interface UserService {
     void stopRenting(String userName, Long scooterId, String newLocation);
 
     void deleteById(Long userId);
+
+    User findByUserName(String userName);
 }

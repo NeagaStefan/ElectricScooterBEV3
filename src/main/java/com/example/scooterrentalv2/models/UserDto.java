@@ -1,6 +1,9 @@
 package com.example.scooterrentalv2.models;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+
 
 @Entity
 @Table(	name = "users",
@@ -33,6 +38,34 @@ public class UserDto {
     @Size(max = 120)
     private String password;
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardCSV() {
+        return cardCSV;
+    }
+
+    public void setCardCSV(String cardCSV) {
+        this.cardCSV = cardCSV;
+    }
+
+    public String getCardExpDate() {
+        return cardExpDate;
+    }
+
+    public void setCardExpDate(String cardExpDate) {
+        this.cardExpDate = cardExpDate;
+    }
+
+    private String cardNumber;
+    private String cardCSV;
+    private String cardExpDate;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -42,10 +75,14 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String username, String email, String password) {
+    public UserDto(String username, String email, String password,String cardNumber, String cardCSV, String cardExpDate) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.cardNumber = cardNumber;
+        this.cardCSV = cardCSV;
+        this.cardExpDate = cardExpDate;
+
     }
 
     public Long getId() {

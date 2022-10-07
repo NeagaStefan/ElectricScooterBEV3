@@ -23,6 +23,12 @@ public class UserController {
     public User updateCustomer(@Valid @PathVariable String email, @RequestBody UserDto userDto){
         return userService.updateUser(email,userDto);
     }
+    @Secured({"ROLE_ADMIN"})
+    @GetMapping("/users/{userName}")
+    public User searchUser(@Valid @PathVariable String userName){
+        return userService.findByUserName(userName);
+    }
+
     @Secured({"ROLE_ADMIN","ROLE_USER"})
     @PutMapping("/users/")
     public void updatePassword(@RequestParam("userName")String userName,@RequestParam("newPass")String newPass){

@@ -32,6 +32,10 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    private String cardNumber;
+    private String cardCSV;
+    private String cardExpDate;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,10 +45,37 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardCSV() {
+        return cardCSV;
+    }
+
+    public void setCardCSV(String cardCSV) {
+        this.cardCSV = cardCSV;
+    }
+
+    public String getCardExpDate() {
+        return cardExpDate;
+    }
+
+    public void setCardExpDate(String cardExpDate) {
+        this.cardExpDate = cardExpDate;
+    }
+
+    public User(String username, String email, String password, String cardNumber, String cardCSV, String cardExpDate) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.cardNumber = cardNumber;
+        this.cardCSV = cardCSV;
+        this.cardExpDate = cardExpDate;
     }
 
     public Long getId() {

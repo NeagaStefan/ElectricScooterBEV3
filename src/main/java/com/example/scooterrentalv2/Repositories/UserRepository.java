@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 import com.example.scooterrentalv2.models.User;
+import com.example.scooterrentalv2.models.UserDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,5 +37,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.username=?1")
     User findByUserName(String userName);
-
 }

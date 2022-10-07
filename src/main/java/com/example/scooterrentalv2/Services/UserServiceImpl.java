@@ -51,7 +51,16 @@ public class UserServiceImpl implements UserService{
         if (Objects.nonNull(userRequest.getPassword()) && !"".equalsIgnoreCase(userRequest.getPassword())) {
         userDb.setPassword(userRequest.getPassword());
     }
-
+        if (Objects.nonNull(userRequest.getCardExpDate()) && !"".equalsIgnoreCase(userRequest.getCardExpDate())) {
+            userDb.setCardExpDate(userRequest.getCardExpDate());
+        }
+        if (Objects.nonNull(userRequest.getCardCSV()) && !"".equalsIgnoreCase(userRequest.getCardCSV())) {
+            userDb.setCardCSV(userRequest.getCardCSV());
+        }
+        if (Objects.nonNull(userRequest.getCardNumber()) && !"".equalsIgnoreCase(userRequest.getCardNumber())) {
+            userDb.setCardNumber(userRequest.getCardNumber());
+        }
+        convertToDto(userDb);
         return userRepo.save(userDb);
 }
 
@@ -64,7 +73,7 @@ public class UserServiceImpl implements UserService{
     public void startRenting(String userName, Long scooterId) {
         //This check is necessary only in postman, in a normal app the user can rent only a scooter
 
-        if (hasAlreadyStarted == false) {
+        if (!hasAlreadyStarted) {
             hasAlreadyStarted = true;
             checkUserName(userName);
             checkDisponibility(scooterId);
@@ -148,6 +157,7 @@ public class UserServiceImpl implements UserService{
         } else {
             totalPrice = price * timeSpent;
         }
+        System.out.println("alooooo aiciiii "+timeSpent);
         historyRepo.saveById(rentalId, timeSpent, stopTime, totalPrice, endLocation);
         scooterRepo.updateStatus(scooterId, "Available");
         scooterRepo.updatePosition(scooterId,newLocation);
@@ -160,9 +170,17 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Override
+    public User findByUserName(String userName) {
+        return userRepo.findByUserName(userName);
+    }
+
 
     public User convertToEntity(UserDto userDto) {
         return (modelMapper.map(userDto, User.class));
+    }
+    public UserDto convertToDto(User user) {
+        return (modelMapper.map(user, UserDto.class));
     }
 
     public List<UserDto> convertListToDto(List<User> users){
@@ -170,7 +188,7 @@ public class UserServiceImpl implements UserService{
     }
     public static int getDateDiff(Timestamp startDate, Timestamp stopDate) {
         long differenceInMinutes = stopDate.getTime() - startDate.getTime();
-        return (int) TimeUnit.MICROSECONDS.toMinutes(differenceInMinutes);
+        return (int) TimeUnit.MILLISECONDS.toMinutes(differenceInMinutes);
 
     }
 }
